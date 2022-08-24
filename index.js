@@ -35,25 +35,24 @@ async function run() {
             res.send(result)
         })
 
-        // app.delete('/product/:id', async (req, res) => {
-        //     const { id } = req.params;
-        //     const query = { _id: ObjectId(id) }
-        //     const result = await productCollection.deleteOne(query)
-        //     res.send(result)
-        // })
+        app.delete('/DataDelete/:id', async (req, res) => {
+            const { id } = req.params;
+            const query = { _id: ObjectId(id) }
+            const result = await DataCollection.deleteOne(query)
+            res.send(result)
+        })
 
 
-        app.put('/data/:id', async (req, res) => {
+        app.put('/update/:id', async (req, res) => {
             const id = req.params.id;
             const updateInfo = req.body;
             const filter = { _id: ObjectId(id) };
             const options = { upsert: true }
             const updateDoc = {
-                $set: {
-                    orderQuantity: updateInfo.orderQuantity
-                }
+                $set: updateInfo
+
             }
-            const result = await productCollection.updateOne(filter, updateDoc, options);
+            const result = await DataCollection.updateOne(filter, updateDoc, options);
             res.send(result)
         })
 
